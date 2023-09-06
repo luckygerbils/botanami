@@ -1,0 +1,6 @@
+#! /usr/bin/env nix-shell
+#! nix-shell -i bash -p inkscape
+#
+inkscape src/images/logo.svg -o src/images/logo-192.png -w 192 -h 192 2>/dev/null
+inkscape src/images/logo.svg -o src/images/logo-512.png -w 512 -h 512 2>/dev/null
+cp -v src/images/logo.svg src/images/favicon.svg

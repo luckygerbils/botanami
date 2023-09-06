@@ -1,0 +1,35 @@
+{
+  "name": "botanami",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "serve": "parcel serve  'src/*.html' --cert .certbot/live/beta.botanami.apps.anasta.si/fullchain.pem --key .certbot/live/beta.botanami.apps.anasta.si/privkey.pem",
+    "build": "parcel build 'src/*.html'",
+    "check": "tsc --noEmit",
+    "lint": "eslint src"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@parcel/packager-raw-url": "^2.8.3",
+    "@parcel/service-worker": "^2.8.3",
+    "@parcel/transformer-webmanifest": "^2.8.3",
+    "@types/node": "^20.5.7",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@typescript-eslint/eslint-plugin": "^6.4.1",
+    "@typescript-eslint/parser": "^6.4.1",
+    "autoprefixer": "^10.4.13",
+    "classnames": "^2.3.2",
+    "eslint": "^8.48.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "parcel": "^2.9.3",
+    "postcss": "^8.4.21",
+    "process": "^0.11.10",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwindcss": "^3.2.7",
+    "typescript": "^5.2.2"
+  }
+}

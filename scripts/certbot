@@ -1,0 +1,28 @@
+#! /usr/bin/env nix-shell
+#! nix-shell -i bash -p certbot-full
+case "$1" in
+renew)
+    certbot renew \
+        --manual \
+        --config-dir .certbot \
+        --work-dir .certbot \
+        --logs-dir .certbot \
+        --preferred-challenges dns \
+        --manual-auth-hook "$(dirname "$0")/certbot-manual-auth" \
+        --manual-cleanup-hook "$(dirname "$0")/certbot-manual-cleanup"
+    ;;
+new)
+    shift
+    certbot certonly \
+        --manual \
+        --config-dir .certbot \
+        --work-dir .certbot \
+        --logs-dir .certbot \
+        --preferred-challenges dns \
+        --manual-auth-hook "$(dirname "$0")/certbot-manual-auth" \
+        --manual-cleanup-hook "$(dirname "$0")/certbot-manual-cleanup" \
+        -d "$@"
+    ;;
+*)
+    certbot "$@"
+esac

@@ -1,0 +1,56 @@
+#! /usr/bin/env nix-shell
+#! nix-shell -i bash -p awscli2 jq
+#
+# Script intended to be invoked by --manual-auth-hook on certbot
+# See scripts/certbot where this is used.
+#
+
+log() {
+    printf "%s: %s\n" "$(date --utc --iso-8601=seconds)" "$1"
+}
+
+log "Creating record _acme-challenge.$CERTBOT_DOMAIN with value $CERTBOT_VALIDATION"
+
+export AWS_CONFIG_FILE=./.credentials/aws/config
+export AWS_SHARED_CREDENTIALS_FILE=./.credentials/aws/credentials
+response=$(
+    aws --profile certbot \
+        route53 change-resource-record-sets \
+        --hosted-zone-id Z3PODT6L2Y6659 \
+        --change-batch "$(
+            jq -n \
+            --arg CERTBOT_VALIDATION "$CERTBOT_VALIDATION" \
+            --arg CERTBOT_DOMAIN "$CERTBOT_DOMAIN" \
+            '{
+                "Changes": [
+                    {
+                        "Action": "UPSERT",
+                        "ResourceRecordSet": {
+                            "Type": "TXT",
+                            "Name": "_acme-challenge.\($CERTBOT_DOMAIN)",
+                            "TTL": 60,
+                            "ResourceRecords": [
+                                {
+                                    "Value": "\"\($CERTBOT_VALIDATION)\""
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }'
+        )"
+)
+
+change_id=$(echo "$response" | jq -r .ChangeInfo.Id)
+change_status=$(echo "$response" | jq -r .ChangeInfo.Status)
+while [ "$change_status" = "PENDING" ]; do
+    log "Change status is $change_status"
+    sleep 1
+    response=$(aws --profile certbot route53 get-change --id "$change_id")
+    change_status=$(echo "$response" | jq -r .ChangeInfo.Status)
+done
+
+log "Change status is $change_status"
+if [ "$change_status" != "INSYNC" ]; then
+    exit 1
+fi

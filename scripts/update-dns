@@ -1,0 +1,62 @@
+#! /usr/bin/env nix-shell
+#! nix-shell -i bash -p awscli2 jq
+# Change the botanami.apps.anasta.si DNS A record to point to whatever local IP address I currently have
+
+log() {
+    printf "%s: %s\n" "$(date --utc --iso-8601=seconds)" "$1"
+}
+
+
+RECORD_NAME=beta.botanami.apps.anasta.si
+IP_ADDRESS=$(
+    ip -j addr show \
+    | jq -r '
+        map(select(.ifname != "docker0" and .link_type != "loopback"))
+      | map(.addr_info | map(select(.family == "inet"))[0])[0].local'
+)
+
+log "Setting $RECORD_NAME to $IP_ADDRESS"
+
+export AWS_CONFIG_FILE=./.credentials/aws/config
+export AWS_SHARED_CREDENTIALS_FILE=./.credentials/aws/credentials
+response=$(
+    aws --profile botanami \
+        route53 change-resource-record-sets \
+        --hosted-zone-id Z3PODT6L2Y6659 \
+        --change-batch "$(
+            jq -n \
+            --arg RECORD_NAME "$RECORD_NAME" \
+            --arg IP_ADDRESS "$IP_ADDRESS" \
+            '{
+                "Changes": [
+                    {
+                        "Action": "UPSERT",
+                        "ResourceRecordSet": {
+                            "Type": "A",
+                            "Name": $RECORD_NAME,
+                            "TTL": 300,
+                            "ResourceRecords": [
+                                {
+                                    "Value": $IP_ADDRESS
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }'
+        )"
+)
+
+change_id=$(echo "$response" | jq -r .ChangeInfo.Id)
+change_status=$(echo "$response" | jq -r .ChangeInfo.Status)
+while [ "$change_status" = "PENDING" ]; do
+    log "Change status is $change_status"
+    sleep 1
+    response=$(aws --profile botanami route53 get-change --id "$change_id")
+    change_status=$(echo "$response" | jq -r .ChangeInfo.Status)
+done
+
+if [ "$change_status" != "INSYNC" ]; then
+    log >&2 "Change status is $change_status"
+    exit 1
+fi
