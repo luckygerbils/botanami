@@ -10,7 +10,7 @@ export function getGoogleOAuthUrl() {
     const params = new URLSearchParams({
         client_id: process.env.GOOGLE_API_CLIENT_ID!,
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        redirect_uri: `https://${process.env.ENDPOINT!}" : ""}/oauth.html`,
+        redirect_uri: `${process.env.ENDPOINT!}/oauth.html`,
         scope: [
             "https://www.googleapis.com/auth/drive.appdata",
             "openid",
