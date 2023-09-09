@@ -2,8 +2,6 @@ import { App } from "./app";
 import { createRoot } from "react-dom/client";
 import React from "react";
 
-throw new Error("died");
-
 void (async function() {
     function loadStatus(message: string) {
         const element = document.getElementById("load-status");
