@@ -1,5 +1,5 @@
 {
-  "name": "Botanami (Beta)",
+  "name": "${APP_NAME}",
   "icons": [
     {
       "src": "./images/logo.svg",
