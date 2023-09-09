@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "parcel serve  'src/*.html' --cert .certbot/live/beta.botanami.apps.anasta.si/fullchain.pem --key .certbot/live/beta.botanami.apps.anasta.si/privkey.pem",
     "build": "parcel build 'src/*.html'",
-    "build-github": "rm -rf docs && parcel build --dist-dir docs 'src/*.html'",
+    "build-github": "find docs -mindepth 1 -not -name CNAME -delete && parcel build --dist-dir docs 'src/*.html'",
     "check": "tsc --noEmit",
     "lint": "eslint src"
   },
