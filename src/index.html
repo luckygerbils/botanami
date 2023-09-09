@@ -6,8 +6,19 @@
         <meta name="theme-color" content="#d9f99d"/>
         <link rel="icon" href="./images/favicon.svg" sizes="any" type="image/svg+xml">
         <link rel="manifest" href="/src/manifest.webmanifest">
+        <script>
+            window.onerror = function (e) {
+                console.error(e);
+                document.body.appendChild(document.createTextNode(String(e)));
+            };
+        </script>
         <script type="module" src="botanami.tsx"></script>
         <link href="./app.css" rel="stylesheet">
     </head>
-    <body></body>
+    <body>
+        <div class="h-screen flex flex-col justify-center items-center">
+            Loading...
+            <div id="load-status"></div>
+        </div>
+    </body>
 </html>
