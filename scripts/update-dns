@@ -17,8 +17,6 @@ IP_ADDRESS=$(
 
 log "Setting $RECORD_NAME to $IP_ADDRESS"
 
-export AWS_CONFIG_FILE=./.credentials/aws/config
-export AWS_SHARED_CREDENTIALS_FILE=./.credentials/aws/credentials
 response=$(
     aws --profile botanami \
         route53 change-resource-record-sets \
@@ -56,7 +54,7 @@ while [ "$change_status" = "PENDING" ]; do
     change_status=$(echo "$response" | jq -r .ChangeInfo.Status)
 done
 
+log "Change status is $change_status"
 if [ "$change_status" != "INSYNC" ]; then
-    log >&2 "Change status is $change_status"
     exit 1
 fi

@@ -11,8 +11,6 @@ log() {
 
 log "Creating record _acme-challenge.$CERTBOT_DOMAIN with value $CERTBOT_VALIDATION"
 
-export AWS_CONFIG_FILE=./.credentials/aws/config
-export AWS_SHARED_CREDENTIALS_FILE=./.credentials/aws/credentials
 response=$(
     aws --profile certbot \
         route53 change-resource-record-sets \
