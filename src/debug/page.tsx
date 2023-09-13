@@ -1,7 +1,7 @@
 import React from "react";
 import { Layout } from "../common/layout";
 import { H1 } from "../common/h1";
-import { Menu } from "../planting-list/menu";
+import { MenuButton } from "../planting-list/menu-button";
 import { RequestProps } from "../types";
 import { getDb } from "../db";
 import { toPromise } from "../db/util";
@@ -38,7 +38,7 @@ export default function DebugPage({
 }: DebugPageProps) {
   return (
     <Layout
-      button={<Menu />} 
+      button={<MenuButton />} 
       header={<H1>Botanami - Debug</H1>}
     >
       <div className="text-2xl p-3">DB Version: {dbVersion}</div>

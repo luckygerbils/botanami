@@ -40,5 +40,5 @@ void (async function() {
     const container = document.createElement("div");
     const root = createRoot(container)
     root.render(<App initialUrl={location.hash.replace(/^#/, "")} />);
-    document.body.childNodes[0].replaceWith(container);
+    document.body.replaceChildren(container);
 })();

@@ -3,7 +3,7 @@ import { Layout } from "../common/layout";
 import { PlantingList } from "./list";
 import { FlowerIcon, PlusIcon } from "../common/icons";
 import { Button } from "../common/button";
-import { Menu } from "./menu";
+import { MenuButton } from "./menu-button";
 import { H1 } from "../common/h1";
 import { PlantingsListPageInitialProps, getPlantingsListPageInitialProps } from "../api/plantings-list";
 import { newPlantingPage } from "../planting/new/page";
@@ -20,7 +20,7 @@ const PlantingListPage: React.FunctionComponent<PlantingsListPageInitialProps> =
 }) => {
   return (
     <Layout
-      button={<Menu />} 
+      button={<MenuButton />} 
       header={<H1>Botanami</H1>}
     >
       {plantings.length > 0 && 
