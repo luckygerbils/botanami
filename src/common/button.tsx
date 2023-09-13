@@ -70,11 +70,12 @@ export function Button({
             flex justify-center items-center 
             text-3xl font-bold
             active:bg-blue-400
-            active:ring-2`;
+            active:ring-2
+            no-tap-highlight`;
     } else if (variant === "link") {
-        basicClasses = `flex justify-center items-center`;
+        basicClasses = `flex justify-center items-center no-tap-highlight`;
     } else {
-        basicClasses = `p-2 rounded ${!className?.includes("w-") ? "w-full" : ""} flex justify-center items-center`;
+        basicClasses = `p-2 rounded ${!className?.includes("w-") ? "w-full" : ""} flex justify-center items-center no-tap-highlight`;
     }
 
     if (linkTo != null) {
