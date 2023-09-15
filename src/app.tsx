@@ -7,6 +7,8 @@ import { RequestProps } from "./types";
 import * as NotFoundPage from "./not-found/page";
 import * as ListPage from "./planting-list/page";
 import * as AboutPage from "./about/page";
+
+import * as PlantListPage from "./plant-list/page";
 import * as PlantPage from "./plant/page";
 import * as NewPlantPage from "./plant/new/page";
 import * as PlantEditFactPage from "./plant/fact/page";
@@ -26,6 +28,7 @@ const PAGES: PageExports<any>[] = [
     AboutPage,
     ListPage,
     PlantPage,
+    PlantListPage,
     NewPlantPage, 
     PlantEditFactPage, 
     PlantingPage, 

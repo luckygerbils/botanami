@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { HamburgerIcon } from "../common/icons";
-import { MenuControlsContext } from "../common/menu";
+import { HamburgerIcon } from "./icons";
+import { MenuControlsContext } from "./menu";
 
 export function MenuButton() {
     const menuControls = useContext(MenuControlsContext);

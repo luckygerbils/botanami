@@ -1,7 +1,7 @@
 import React from "react";
 import { Layout } from "../common/layout";
 import { H1 } from "../common/h1";
-import { MenuButton } from "../planting-list/menu-button";
+import { MenuButton } from "../common/menu-button";
 import { RequestProps } from "../types";
 import { getDb } from "../db";
 import { toPromise } from "../db/util";

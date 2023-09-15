@@ -5,6 +5,7 @@ import { debugPage } from "../debug/page";
 import { plantingListPage } from "../planting-list/page";
 import { Link } from "./link";
 import c from "classnames";
+import { plantListPage } from "../plant-list/page";
 
 export interface MenuControls {
   open: () => void
@@ -75,6 +76,7 @@ export const Menu = forwardRef(function Menu(_, ref) {
               Botanami
           </header>
           <MenuItem linkTo={plantingListPage()}>Plantings</MenuItem>
+          <MenuItem linkTo={plantListPage()}>Plants</MenuItem>
           <MenuItem linkTo={aboutPage()}>About</MenuItem>
           <hr />
           <MenuItem linkTo={backupPage()}>Manage Backups</MenuItem>

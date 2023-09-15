@@ -3,7 +3,7 @@ import { Layout } from "../common/layout";
 import { PlantingList } from "./list";
 import { FlowerIcon, PlusIcon } from "../common/icons";
 import { Button } from "../common/button";
-import { MenuButton } from "./menu-button";
+import { MenuButton } from "../common/menu-button";
 import { H1 } from "../common/h1";
 import { PlantingsListPageInitialProps, getPlantingsListPageInitialProps } from "../api/plantings-list";
 import { newPlantingPage } from "../planting/new/page";

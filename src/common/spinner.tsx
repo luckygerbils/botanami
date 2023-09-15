@@ -1,7 +1,7 @@
 import React from "react";
 
 interface SpinnerProps {
-    size?: "sm"|"md"
+    size?: "sm"|"md"|"lg"
 }
 
 export function Spinner({
@@ -10,11 +10,13 @@ export function Spinner({
     const sizeRem = {
         sm: "1rem",
         md: "2rem",
+        lg: "3rem"
     }[size];
 
     const borderWidth = {
         sm: ".2em",
         md: ".25em",
+        lg: ".3em",
     }[size];
 
     return (
