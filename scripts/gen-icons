@@ -1,6 +1,7 @@
 #! /usr/bin/env nix-shell
 #! nix-shell -i bash -p inkscape
 #
-inkscape src/images/logo.svg -o src/images/logo-192.png -w 192 -h 192 2>/dev/null
-inkscape src/images/logo.svg -o src/images/logo-512.png -w 512 -h 512 2>/dev/null
-cp -v src/images/logo.svg src/images/favicon.svg
+cat src/images/logo.svg | grep -v 'id="bg"' >src/images/favicon.svg
+inkscape <(cat src/images/logo.svg | grep -v 'id="bg"') -o src/images/logo-192.png -w 192 -h 192 2>/dev/null
+inkscape <(cat src/images/logo.svg | grep -v 'id="bg"') -o src/images/logo-512.png -w 512 -h 512 2>/dev/null
+inkscape src/images/logo.svg -o src/images/logo-maskable-192.png -w 192 -h 192 2>/dev/null
