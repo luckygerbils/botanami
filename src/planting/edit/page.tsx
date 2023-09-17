@@ -35,7 +35,7 @@ export default function EditPlantingPage({
   const confirmDelete = useCallback(() => setConfirmingDelete(true), []);
   const doDelete = useCallback(async () => {
     await deletePlanting(plantingId);
-    back();
+    back(2);
   }, [plantingId]);
   
   return (

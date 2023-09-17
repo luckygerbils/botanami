@@ -70,7 +70,8 @@ export async function getPlantingPageInitialProps(plantingId: PlantingId): Promi
 export class PlantingIdNotFoundError extends Error {
     readonly plantingId: PlantingId;
     constructor(plantingId: PlantingId) {
-        super();
+        super(`No planting record found with id ${plantingId}`);
+        this.name = PlantingIdNotFoundError.name;
         this.plantingId = plantingId;
     }
 }

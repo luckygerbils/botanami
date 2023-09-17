@@ -21,6 +21,6 @@ export function goTo(to: string) {
     location.assign(`/#${to}`);
 }
 
-export function back() {
-    history.back();
+export function back(delta=1) {
+    history.go(-delta);
 }

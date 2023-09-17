@@ -19,7 +19,7 @@ export default function FailurePage({
     >
       <header className="p-2 bg-red-700">
         <b>Error:</b>{' '}
-        {error.message && error.message.length > 0 || <i>(No message)</i>}
+        {error.message == null || error.message.trim().length === 0 || <i>(No message)</i>}
       </header>
       <div className="bg-zinc-800 whitespace-pre-wrap p-2 pl-12 -indent-10 break-all">
         {error.stack?.split("\n").map((entry, i) => <div key={i}>{entry}</div>)}

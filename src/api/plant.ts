@@ -54,7 +54,8 @@ export async function getPlantPageInitialProps(id: PlantId): Promise<PlantPagePr
 class PlantIdNotFoundError extends Error {
     readonly plantId: PlantId;
     constructor(plantId: PlantId) {
-        super();
+        super(`No plant found with id ${plantId}`);
+        this.name = PlantIdNotFoundError.name;
         this.plantId = plantId;
     }
 }
