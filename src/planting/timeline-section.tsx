@@ -35,7 +35,7 @@ export function TimelineSection({
             <Button className="mb-2 text-2xl" linkTo={timelineEntryPage({ plantingId })}>
               <CalendarPlusIcon />&nbsp;Add Entry
             </Button>
-            <div className="mb-2">
+            <div className="mb-2 divide-y divide-zinc-800">
               {timeline
                 .sort(reversed((a, b) => dateCompare(a.date, b.date)))
                 .map(entry => 

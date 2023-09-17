@@ -32,9 +32,9 @@ export function Fact({
       <div className="text-xl">{description}</div>
       {(photos && photos.length > 0) && (
           <div className="grid grid-flow-col auto-cols-1fr gap-4">
-            {photos.map(({id, blob}) =>
-              <div key={id} className="w-full h-40">
-                <ExpandableImage className="object-cover w-full h-full" src={URL.createObjectURL(blob)} />
+            {photos.map(photo =>
+              <div key={photo.id} className="w-full h-40">
+                <ExpandableImage className="object-cover w-full h-full" photo={photo} />
               </div>)}
           </div>
         )}

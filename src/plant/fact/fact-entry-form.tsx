@@ -6,6 +6,7 @@ import { ImageIcon } from "../../common/icons";
 import { getExifModifyDate } from "../../util/exif";
 import { Input } from "../../common/input";
 import { AutosizeTextArea } from "../../common/autosize-textarea";
+import { EditableImage } from "../../common/editable-image";
 
 export interface FactEntryFormData {
   id: PlantFactId,
@@ -96,9 +97,9 @@ export function FactEntryForm({
       <div className="mb-2">
         {photos != null && photos.length > 0 && (
           <div className="mb-2 grid grid-cols-3 gap-2">
-            {photos.map(({ id, blob }) => 
-              <div key={id} className="w-full h-40">
-                <ExpandableImage className="object-cover w-full h-full" src={URL.createObjectURL(blob)} />
+            {photos.map(photo => 
+              <div key={photo.id} className="w-full h-40">
+                <EditableImage className="object-cover w-full h-full" image={photo} />
               </div>)}
           </div>
         )}

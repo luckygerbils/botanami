@@ -70,7 +70,7 @@ export type TimelineEntryRecord = Omit<TimelineEntry, "date"|"photos"> & {
 
 export type PhotoId = string;
 export type Photo = PlantFactPhoto | TimelineEntryPhoto;
-interface BasePhoto {
+export interface BasePhoto {
     id: PhotoId,
     blob: Blob,
 }

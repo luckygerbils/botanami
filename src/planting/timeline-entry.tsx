@@ -36,7 +36,7 @@ export function TimelineEntry({
   }, []);
 
   return (
-    <div className="mb-2 border-2">
+    <div className="mb-2">
       <div onClick={showMenu} className="p-2">
         <div className="flex">
           {summary &&
@@ -47,9 +47,9 @@ export function TimelineEntry({
         </div>
         {(photos && photos.length > 0) && (
           <div className="grid grid-cols-3 gap-2">
-          {photos.map(({id, blob}) =>
-            <div key={id} className="w-full h-40">
-              <ExpandableImage className="object-cover w-full h-full" src={URL.createObjectURL(blob)} />
+          {photos.map(photo =>
+            <div key={photo.id} className="w-full h-40">
+              <ExpandableImage className="object-cover w-full h-full" photo={photo} />
             </div>)}
           </div>
         )}

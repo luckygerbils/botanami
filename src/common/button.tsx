@@ -8,7 +8,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     floating?: boolean,
 }
 
-type Variant = "primary"|"secondary"|"save"|"danger"|"link";
+type Variant = "primary"|"secondary"|"save"|"danger"|"link"|"translucent";
 
 export function Button({
     children,
@@ -37,6 +37,10 @@ export function Button({
         "save": {
             disabled: "bg-blue-200",
             normal: "bg-blue-600"
+        },
+        "translucent": {
+            disabled: "bg-black/50",
+            normal: "bg-black/50",
         }
     }[variant][disabled ? "disabled" : "normal"];
 
@@ -58,6 +62,10 @@ export function Button({
             normal: "text-blue-400",
         },
         "save": {
+            disabled: "text-slate-100",
+            normal: "text-slate-100",
+        },
+        "translucent": {
             disabled: "text-slate-100",
             normal: "text-slate-100",
         }
