@@ -16,21 +16,23 @@ void (async function() {
                 scope: '/',
                 type: "module"
             });
-        const installingOrWaiting = registration.installing ?? registration.waiting;
-        if (installingOrWaiting) {
-            await new Promise<void>((resolve, reject) => {
-                installingOrWaiting.onstatechange = function() {
-                    console.log("state:", installingOrWaiting.state);
-                    loadStatus(`state: ${installingOrWaiting.state}`);
-                    if (installingOrWaiting.state === 'activated') {
-                        console.log('Service worker installed. Resolving');
-                        resolve();
-                        // window.location.reload(); // Reload so service worker is available.
-                    }
-                };
-            });
-        } else {
-            console.log("Service worker is active");
+        if (process.env.NODE_ENV === "development") {
+            const installingOrWaiting = registration.installing ?? registration.waiting;
+            if (installingOrWaiting) {
+                await new Promise<void>((resolve, reject) => {
+                    installingOrWaiting.onstatechange = function() {
+                        console.log("state:", installingOrWaiting.state);
+                        loadStatus(`state: ${installingOrWaiting.state}`);
+                        if (installingOrWaiting.state === 'activated') {
+                            console.log('Service worker installed. Resolving');
+                            resolve();
+                            // window.location.reload(); // Reload so service worker is available.
+                        }
+                    };
+                });
+            } else {
+                console.log("Service worker is active");
+            }
         }
     } catch (error) {
         console.error(`Service worker registration failed with ${String(error)}`);
