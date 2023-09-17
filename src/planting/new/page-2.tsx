@@ -4,6 +4,7 @@ import { BackButton } from "../../common/back-button";
 import { Button } from "../../common/button";
 import { H1 } from "../../common/h1";
 import { Layout } from "../../common/layout";
+import { Input } from "../../common/input";
 
 export interface NewPlantingPageTwoOutput {
   location: string,
@@ -36,7 +37,7 @@ export function NewPlantingPageTwo({
         <div className="text-2xl mb-2">
           Where is it?
         </div>
-        <input autoFocus className="border-2 text-2xl p-2 mb-2 w-full" placeholder="Location" value={location} onChange={changeLocation} />
+        <Input autoFocus className="text-2xl mb-2" placeholder="Location" value={location} onChange={changeLocation} />
 
         <Button className="text-xl" type="submit" disabled={location.length === 0}>
           Next

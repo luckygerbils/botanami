@@ -17,9 +17,11 @@ export default function FailurePage({
       button={<BackButton />}
       header={<H1>Error</H1>}
     >
-      <h1 className="text-3xl p-3">500 Internal Server Error</h1>
-      <div className="bg-red-100">
-        Error: {error.message}
+      <header className="p-2 bg-red-700">
+        <b>Error:</b>{' '}
+        {error.message && error.message.length > 0 || <i>(No message)</i>}
+      </header>
+      <div className="bg-zinc-800 whitespace-pre-wrap p-2 pl-12 -indent-10 break-all">
         {error.stack?.split("\n").map((entry, i) => <div key={i}>{entry}</div>)}
       </div>
     </Layout>
