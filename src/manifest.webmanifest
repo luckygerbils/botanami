@@ -24,10 +24,10 @@
     }
   ],
   "start_url": "${ENDPOINT}/#/list",
-  "background_color": "#0f172a",
+  "background_color": "black",
   "display": "standalone",
   "scope": "/",
-  "theme_color": "#0f172a",
+  "theme_color": "black",
   "shortcuts": [
   ],
   "description": "Keep track of your plant friends",

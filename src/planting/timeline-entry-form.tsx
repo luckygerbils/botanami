@@ -5,6 +5,7 @@ import { Photo, TimelineEntryId, TimelineEntryPhoto } from "../types";
 import { getExifModifyDate } from "../util/exif";
 import { CardTextIcon, ImageIcon, LinkIcon } from "../common/icons";
 import { AutosizeTextArea } from "../common/autosize-textarea";
+import { Input } from "../common/input";
 
 interface TimelineEntryFormData {
   id: TimelineEntryId,
@@ -89,30 +90,30 @@ export function TimelineEntryForm({
   return (
     <>
       <div className="mb-2">
-        Date
-        <div className="flex mr-2">
+        <span className="text-zinc-300">Date</span>
+        <div className="flex bg-zinc-800">
           <input type="date" ref={dateInput}
             className="hidden"
             value={manualDate ?? ""}
             onChange={changeDate} />
-          <div className="border-2 p-2 text-xl grow mr-2 ">
+          <div className="p-2 text-xl grow mr-2" onClick={chooseDate}>
             {useAutoDate ? autoDate : manualDate}{useAutoDate && <span className="text-slate-400"> (auto)</span>}
           </div>
-          <Button variant="link" className="w-auto" onClick={useAutoDate ? chooseDate : unchooseDate}>
+          <Button variant="link" className="w-auto mr-2" onClick={useAutoDate ? chooseDate : unchooseDate}>
             {useAutoDate ? "override" : "use auto"}
           </Button>
         </div>
       </div>
 
       <div className="mb-2">
-        <label htmlFor="summary">Summary</label>
-        <input autoFocus id="summary" type="text" className="w-full border-2 text-xl p-2" value={summary} onChange={changeSummary} />
+        <label htmlFor="summary" className="text-zinc-300">Summary</label>
+        <Input autoFocus id="summary" type="text" className="text-xl" value={summary} onChange={changeSummary} />
       </div>
 
       {hasDescription && (
         <>
-          <label htmlFor="description">Description</label>
-          <AutosizeTextArea autoFocus id="description" className="border-2 p-2 mb-2" value={description} onChange={changeDescription} />
+          <label htmlFor="description"className="text-zinc-300">Description</label>
+          <AutosizeTextArea autoFocus id="description" className="mb-2" value={description} onChange={changeDescription} />
         </>
       )}
 
@@ -126,11 +127,11 @@ export function TimelineEntryForm({
       )}
 
       <div className="grid grid-flow-col auto-cols-fr gap-2 mb-2">
-        <Button className="border-2 p-4" onClick={addPhoto}>
+        <Button className="p-4" onClick={addPhoto}>
           <input type="file" multiple className="hidden" ref={photoInput} onChange={upload} />
           <ImageIcon size="lg" />
         </Button>
-        <Button className="border-2 p-4" onClick={toggleHasDescription} variant={hasDescription ? "secondary" : "primary"}>
+        <Button className="p-4" onClick={toggleHasDescription} variant={hasDescription ? "secondary" : "primary"}>
           <CardTextIcon size="lg" />
         </Button>
       </div>

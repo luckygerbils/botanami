@@ -56,7 +56,7 @@ export const Menu = forwardRef(function Menu(_, ref) {
       />
       <aside 
         ref={menuElement}
-        className="absolute inset-0 h-screen w-2/3 bg-white shadow-lg transition-all overflow-hidden touch-none"
+        className="absolute inset-0 h-screen w-2/3 bg-dark shadow-lg transition-all overflow-hidden touch-none"
         style={{
           opacity: dragPercent != null ? 1: (isOpen ? 1 : 0),
           transform: dragAmount == null 

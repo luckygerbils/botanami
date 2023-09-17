@@ -73,7 +73,7 @@ export function BackupListEntry({
 
   return (
     <li className="mb-2">
-      <div className="text-xl p-2 border-2 grid grid-cols-[4fr_1fr_1fr_1fr] gap-1 items-center">
+      <div className="text-xl p-2 border-2 border-zinc-500 grid grid-cols-[4fr_1fr_1fr_1fr] gap-1 items-center">
         <div className="grow">{backup.date.toLocaleString(undefined, {dateStyle: "short", timeStyle: "short"})}</div>
         <Button className="w-auto mr-2" variant="danger" onClick={deleteBackup} disabled={deleting || restoring}>delete</Button>
         <Button className="w-auto mr-2" onClick={restoreBackup} disabled={deleting || restoring}>restore</Button>

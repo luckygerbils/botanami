@@ -41,13 +41,13 @@ export default function PlantPage({
       header={<H1><ScientificName name={scientificName} /></H1>}
     >
       <section className="mb-2">
-        <header className="text-2xl py-2 px-4 bg-lime-200 mb-2 font-bold">Common Names</header>
+        <header className="text-2xl py-2 px-4 bg-black mb-2 font-bold">Common Names</header>
         <div className="px-4 text-xl">
           <CommonNameList list={commonNames} />
         </div>
       </section>
       <section onClick={closeExpandedFact} ref={factSection} className="grow">
-        <header className="flex mb-2 bg-lime-200 items-center">
+        <header className="flex mb-2 bg-black items-center">
           <div className="grow text-2xl py-2 px-4 font-bold">Facts</div>
           {facts.length > 0 && (
             <div className="flex items-center justify-end">
@@ -66,7 +66,7 @@ export default function PlantPage({
         )}
         {facts.length === 0 && (
           <div className="px-4">
-            <div className="text-2xl bg-blue-200 p-16 rounded text-center m-4">
+            <div className="text-2xl p-16 rounded text-center m-4">
               No facts yet
             </div>
             <Button className="mb-2 text-2xl" linkTo={editPlantFactPage({ plantId })}>

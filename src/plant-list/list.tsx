@@ -8,6 +8,7 @@ import { Link } from "../common/link";
 import { plantPage } from "../plant/page";
 import { Spinner } from "../common/spinner";
 import { useDebounce } from "../util/debounce";
+import { Input } from "../common/input";
 
 interface PlantListProps {
   plants: {
@@ -47,11 +48,11 @@ export function PlantList({
   return (
     <>
       <label className="mx-4 mt-4">
-        <input type="text" className="border-2 w-full text-xl p-2" placeholder="Search" autoFocus 
+        <Input type="text" className="text-xl" placeholder="Search" autoFocus 
           value={searchText} onChange={changeSearchText} />
       </label>
       {!matching && (
-        <div className="flex flex-col divide-y">
+        <div className="flex flex-col divide-y divide-zinc-500">
           {plants.map(({id: plantId, scientificName, commonNames}) => (
             <Link key={plantId} to={plantPage({ plantId })}
                 className="p-4 text-xl">

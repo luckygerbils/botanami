@@ -45,7 +45,7 @@ const PlantListPage: React.FunctionComponent<PlantListPageInitialProps> = ({
         <PlantList plants={plants} />}
       {plants.length === 0 && (
         <div className="flex flex-col grow justify-center p-4">
-          <div className="text-2xl bg-blue-200 p-16 mb-3 rounded text-center">
+          <div className="text-2xl p-16 mb-3 rounded text-center">
             <FlowerIcon /><br />
             No plants in the database yet.
           </div>

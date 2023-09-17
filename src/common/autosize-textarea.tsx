@@ -1,11 +1,22 @@
 import React, { ChangeEvent, useCallback, useState } from "react";
 
-interface AutosizeTextAreaProps extends React.ButtonHTMLAttributes<HTMLTextAreaElement> {
+interface AutosizeTextAreaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
 }
 
-export function AutosizeTextArea(props: AutosizeTextAreaProps) {
-    const rows = props.value == null ? 0 : String(props.value).split("\n").length;
+export function AutosizeTextArea({
+    className,
+    rows: _,
+    ...otherProps
+}: AutosizeTextAreaProps) {
+    const rows = Math.max(2, otherProps.value == null ? 2 : String(otherProps.value).split("\n").length);
     return (
-        <textarea {...props} rows={rows} />
+        <textarea
+            className={`
+                w-full p-2
+                bg-zinc-800 
+                outline-none 
+                border-2 border-transparent focus:border-zinc-700 ${className}`} 
+            {...otherProps} 
+            rows={rows} />
     );
 }

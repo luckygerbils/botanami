@@ -6,6 +6,7 @@ import { RequestProps } from "../../types";
 import { BackButton } from "../../common/back-button";
 import { toPromise } from "../../db/util";
 import c from "classnames";
+import { Button } from "../../common/button";
 
 export function debugStorePage({ storeName }: { storeName: string }): string {
   return  `/debug/store/${storeName}`;
@@ -91,9 +92,9 @@ export default function DebugStorePage({
         <>
           <table className="mb-2">
             <thead>
-              <tr className="bg-slate-200">
+              <tr className="bg-black">
                 <td></td>
-                {keys.map(key => <th key={key} className="p-1 border-r-2">{key}</th>)}
+                {keys.map(key => <th key={key} className="p-1 border-r-2 border-zinc-500">{key}</th>)}
               </tr>
             </thead>
             <tbody>
@@ -101,12 +102,13 @@ export default function DebugStorePage({
                 <EntryRow key={row} entry={entry} entryKey={entryKey} keys={keys} selected={selected.has(entryKey)} onSelect={select} />)}
             </tbody>
           </table>
-          <button 
-              className={c("text-xl bg-red-300 p-2 disabled:bg-slate-300", {"bg-red-800 text-white": confirming} )}
+          <Button 
+              variant={confirming ? "danger" : "secondary"}
+              className="text-xl p-2"
               onClick={confirming ? deleteSelected : confirm}
               disabled={selected.size === 0}>
             {confirming ? <>Are you sure?</> : <>Delete</>}
-          </button>  
+          </Button>  
         </>}
     </Layout>
   )
@@ -129,15 +131,15 @@ function EntryRow({
     onSelect(entryKey, e.currentTarget.checked);
   }, [entryKey, onSelect]);
   return (
-    <tr className="text-xl p-2 odd:bg-slate-50">
+    <tr className="text-xl p-2 odd:bg-zinc-800">
       <td className="p-2"><input type="checkbox" onClick={click}/></td>
       {keys.map((key, column) => {
         const value = (entry as Record<string, unknown>)[key];
         return (
-          <td key={key} className={c("p-1 border-r-2", {"max-w-[5em] whitespace-nowrap text-ellipsis overflow-hidden": column === 0})}>
+          <td key={key} className={c("p-1 border-r-2 border-zinc-500", {"max-w-[5em] whitespace-nowrap text-ellipsis overflow-hidden": column === 0})}>
             {value === undefined ? "" : 
             typeof value !== "object" ? String(value) :
-            value instanceof Blob ? <a href={URL.createObjectURL(value)} className="text-blue-800 underline">blob</a> : 
+            value instanceof Blob ? <a href={URL.createObjectURL(value)} className="text-blue-400 underline">blob</a> : 
             JSON.stringify(value)}
           </td>
         );

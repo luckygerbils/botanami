@@ -26,7 +26,7 @@ export function TimelineSection({
 }: TimelineSectionProps) {  
   return (
     <section>
-      <header className="text-2xl py-2 px-4 bg-lime-200 mb-2 font-bold flex items-center">
+      <header className="text-2xl py-2 px-4 bg-black mb-2 font-bold flex items-center">
         <CalendarIcon />&nbsp;Timeline
       </header>
       <div className="px-4">
@@ -46,7 +46,7 @@ export function TimelineSection({
         )}
         {timeline.length === 0 && (
           <>
-            <div className="text-2xl bg-blue-200 p-16 rounded text-center m-4">
+            <div className="text-2xl p-16 rounded text-center m-4">
               <CalendarIcon /><br />
               No entries yet
             </div>

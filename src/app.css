@@ -20,3 +20,8 @@
 .no-tap-highlight {
     -webkit-tap-highlight-color: transparent;
 }
+
+body {
+    background-color: black;
+    color: theme('colors.light');
+}

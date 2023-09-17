@@ -42,9 +42,9 @@ export default function DebugPage({
       header={<H1>Botanami - Debug</H1>}
     >
       <div className="text-2xl p-3">DB Version: {dbVersion}</div>
-      <div className="border-t-4">
+      <div className="border-t-4 border-zinc-500">
         {Object.entries(objectStoreCounts).map(([storeName, count]) =>
-          <Link className="text-2xl p-3 border-b-2 grid grid-cols-2 odd:bg-slate-50" key={storeName} to={debugStorePage({ storeName })}>
+          <Link className="text-2xl p-3 border-b-2 border-zinc-500 grid grid-cols-2 odd:bg-zinc-800" key={storeName} to={debugStorePage({ storeName })}>
             <div>{storeName}</div>
             <div className="text-right">{count}</div>
           </Link>)}

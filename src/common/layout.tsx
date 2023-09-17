@@ -25,14 +25,14 @@ export function Layout({
   
   return (
     <MenuControlsContext.Provider value={{ open: openMenu }}>
-      <div className="h-screen">
+      <div className="h-screen text-light">
         <Menu ref={menu} />
-        <div className="flex flex-col h-screen">
-          <header className="border-b-2 flex items-center">
+        <div className="bg-black flex flex-col h-screen">
+          <header className="flex items-center">
             {button}
             {header}
           </header>
-          <div className="overflow-scroll grow flex flex-col">
+          <div className="bg-dark overflow-scroll grow flex flex-col">
             {children}
           </div>
         </div>

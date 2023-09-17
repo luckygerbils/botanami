@@ -8,6 +8,7 @@ import { SaveIcon } from "../../common/icons";
 import { createPlant } from "../../api/plant";
 import { back, goTo } from "../../common/link";
 import { RequestProps } from "../../types";
+import { Input } from "../../common/input";
 
 export function newPlantPage(): string {
   return `/new-plant`;
@@ -58,12 +59,12 @@ export default function NewPlantPage({
       <section className="px-4 mt-2">
         <div className="mb-2">
           <div className="text-xl">Common Names</div>
-          <input type="text" autoFocus className="border-2 p-2 w-full" placeholder="(comma separated)" 
+          <Input type="text" autoFocus className="p-2 w-full" placeholder="(comma separated)" 
             value={commonNames.join(", ")} onChange={changeCommonNames} />
         </div>
         <div className="mb-2">
           <div className="text-xl">Scientific Name</div>
-          <input type="text" autoFocus className="border-2 p-2 w-full" placeholder="(optional)"
+          <Input type="text" autoFocus className="p-2 w-full" placeholder="(optional)"
             value={scientificName} onChange={changeScientificName} />
         </div>
         {initialFact == null && (

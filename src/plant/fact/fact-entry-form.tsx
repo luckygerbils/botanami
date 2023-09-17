@@ -4,6 +4,8 @@ import { Button } from "../../common/button";
 import { ExpandableImage } from "../../common/expandable-image";
 import { ImageIcon } from "../../common/icons";
 import { getExifModifyDate } from "../../util/exif";
+import { Input } from "../../common/input";
+import { AutosizeTextArea } from "../../common/autosize-textarea";
 
 export interface FactEntryFormData {
   id: PlantFactId,
@@ -75,8 +77,8 @@ export function FactEntryForm({
     <>
       <div className="mb-2">
         <label htmlFor="summary">Summary</label>
-        <input type="text" id="summary" 
-          className="border-2 p-2 text-xl w-full" 
+        <Input type="text" id="summary" 
+          className="text-xl" 
           placeholder="(optional)"
           value={summary ?? ""}
           onChange={changeSummary} />
@@ -84,8 +86,8 @@ export function FactEntryForm({
 
       <div className="mb-2">
         <label htmlFor="description">Description</label>
-        <textarea id="description" 
-          className="border-2 p-2 text-xl w-full" 
+        <AutosizeTextArea id="description" 
+          className="text-xl" 
           placeholder="(optional)"
           value={description ?? ""}
           onChange={changeDescription} />
@@ -109,16 +111,16 @@ export function FactEntryForm({
 
       <div className="mb-2">
         <label htmlFor="s">Source Website</label>
-        <input id="sourceWebsite" 
-          className="border-2 p-2 text-xl w-full" 
+        <Input id="sourceWebsite" 
+          className="text-xl" 
           placeholder="(optional)"
           value={sourceWebsite ?? ""}
           onChange={changeSourceWebsite} />
       </div>
       <div className="mb-2">
         <label htmlFor="s">Source URL</label>
-        <input id="sourceUrl" 
-          className="border-2 p-2 text-xl w-full" 
+        <Input id="sourceUrl" 
+          className="text-xl" 
           placeholder="(optional)"
           value={sourceUrl ?? ""}
           onChange={changeSourceUrl} />

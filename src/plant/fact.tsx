@@ -25,7 +25,7 @@ export function Fact({
 }: FactProps) {
   const click = useCallback(() => onClick(factId), [factId, onClick]);
   return (
-    <div className="p-4 m-2 border-2 touch-none"
+    <div className="p-4 m-2 border-2 border-zinc-700 touch-none"
       onClick={click}
     >
       <div className="text-xl font-bold">{summary}</div>

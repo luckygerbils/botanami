@@ -19,7 +19,7 @@ export function BackupList({
 }: BackupListProps) {
   return (
     <section>
-      <header className="text-2xl py-2 px-4 bg-lime-200 mb-2 font-bold">
+      <header className="text-2xl py-2 px-4 bg-black mb-2 font-bold">
         Current Backups
       </header>
       <div className="p-3">

@@ -22,12 +22,12 @@ export function Button({
 }: PropsWithChildren<ButtonProps>) {
     const bgClass = {
         "primary": {
-            disabled: "bg-lime-100",
-            normal: "bg-lime-400",
+            disabled: "bg-lime-800",
+            normal: "bg-lime-500",
         },
         "secondary": {
-            disabled: "bg-stone-100",
-            normal: "bg-stone-300"
+            disabled: "bg-zinc-100",
+            normal: "bg-zinc-300"
         },
         "danger": {
             disabled: "bg-red-100",

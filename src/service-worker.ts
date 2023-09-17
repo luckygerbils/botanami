@@ -37,6 +37,11 @@ addEventListener('activate', (e: Event) => {
 sw.addEventListener("fetch", (event: FetchEvent) =>  {
     event.respondWith(
         (async () => {
+            if (process.env.NODE_ENV === "development") {
+                log(`skipping cache in development`);
+                return fetch(event.request);
+            }
+            
             const cachedResponse = await caches.match(event.request);
             if (cachedResponse != null) {
                 log(`${event.request.url} is cached`);

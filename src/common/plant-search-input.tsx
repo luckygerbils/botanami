@@ -4,6 +4,7 @@ import { CommonNameList } from "./common-name-list";
 import { ScientificName } from "./scientific-name";
 import c from "classnames";
 import { PlantSearchMatch, searchPlants } from "../api/plant-search";
+import { Input } from "./input";
 
 interface PlantSearchInputProps {
   initialSearchText?: string,
@@ -39,19 +40,21 @@ export function PlantSearchInput({
 
   return (
     <>
-      <input className="border-2 text-2xl p-2 mb-2 w-full" 
+      <Input className="text-2xl p-2 mb-2 w-full" 
         autoFocus 
         placeholder="Plant Name" 
         value={searchText} 
         onChange={changeInput} />
-      {searchText.length > 0 && <>
-        {plantMatches.loading && <>Loading...</>}
-        {plantMatches.error && <>Error: {plantMatches.error.message}</>}
-        {plantMatches.data && <>
-          {plantMatches.data.map(plantMatch => 
-            <PlantSearchResultEntry key={plantMatch.match} match={plantMatch} onClick={onSelect} />)}
+      <div className="divide-y divide-zinc-800">
+        {searchText.length > 0 && <>
+          {plantMatches.loading && <>Loading...</>}
+          {plantMatches.error && <>Error: {plantMatches.error.message}</>}
+          {plantMatches.data && <>
+            {plantMatches.data.map(plantMatch => 
+              <PlantSearchResultEntry key={plantMatch.match} match={plantMatch} onClick={onSelect} />)}
+          </>}
         </>}
-      </>}
+      </div>
     </>
   )
 }
@@ -67,7 +70,7 @@ function PlantSearchResultEntry({
 }: PlantSearchResultEntryProps) {
   const click = useCallback(() => onClick({ plant: match.plant, name: match.match }), [onClick, match.plant, match.match]);
   return (
-    <div className="border-2 p-2 mb-2 flex items-center">
+    <div className="p-2 mb-2 flex items-center">
       <div className="flex flex-col">
         <div className={c("text-2xl", { "italic": match.matchType === "scientificName" })}>
           <HighlightedSearchResult match={match.match} matcheIndexes={match.matchIndexes} />
