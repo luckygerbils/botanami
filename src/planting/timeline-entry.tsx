@@ -54,7 +54,7 @@ export function TimelineEntry({
           </div>
         )}
         {description && (
-          <div>
+          <div className="whitespace-pre-line">
             {description}
           </div>
         )}

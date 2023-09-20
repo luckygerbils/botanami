@@ -28,8 +28,10 @@ export function Fact({
     <div className="p-4 m-2 border-2 border-zinc-700 touch-none"
       onClick={click}
     >
-      <div className="text-xl font-bold">{summary}</div>
-      <div className="text-xl">{description}</div>
+      {summary &&
+        <div className="text-xl font-bold mb-2">{summary}</div>}
+      {description != null && 
+        <div className="text-xl whitespace-pre-line mb-2">{description}</div>}
       {(photos && photos.length > 0) && (
           <div className="grid grid-flow-col auto-cols-1fr gap-4">
             {photos.map(photo =>
