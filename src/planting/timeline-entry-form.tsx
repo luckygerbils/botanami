@@ -20,6 +20,9 @@ interface TimelineEntryFormProps {
   onChange: (data: TimelineEntryFormData) => void,
 }
 
+const DateTypes = ["auto", "date", "month", "year"] as const;
+type DateType = typeof DateTypes[number];
+
 export function TimelineEntryForm({
   data,
   onChange,
@@ -30,18 +33,44 @@ export function TimelineEntryForm({
     photos=[],
   } = data;
 
+  const [ dateType, setDateType ] = useState<DateType>("auto");
+
   const dateInput = useRef<HTMLInputElement>(null);
+  const showDateInput = useCallback(() => dateInput.current?.showPicker(), []);
+  const monthInput = useRef<HTMLInputElement>(null);
+  const showMonthInput = useCallback(() => monthInput.current?.showPicker(), []);
+
   const [ autoDate, setAutoDate ] = useState(new Date().toISOString().substring(0, 10));
-  const [ useAutoDate, setUseAutoDate ] = useState(true);
   const [ manualDate, setManualDate ] = useState<string|null>(null);
-  const chooseDate = useCallback(() => dateInput.current?.showPicker(), []);
-  const unchooseDate = useCallback(() => setUseAutoDate(true), []);
+
+  const changeDateType = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
+    const dateType = e.target.selectedOptions[0].value as DateType;
+    if (dateType === "auto") {
+      setManualDate(null);
+    } else {
+      if (manualDate == null && dateType !== "year") {
+        // Unfortunately, can't do anything to show the year input automatically
+        ({ date: showDateInput, month: showMonthInput })[dateType]();
+      }
+
+      const [ manualYear, manualMonth, manualDay ] = manualDate == null ? [] : manualDate.split("-");
+      const [ autoYear, autoMonth, autoDay ] = autoDate.split("-");
+      const [ year, month, day ] = [manualYear ?? autoYear, manualMonth ?? autoMonth, manualDay ?? autoDay];
+
+      setManualDate({
+        date: `${year}-${month}-${day}`,
+        month: `${year}-${month}`,
+        year: `${year}`,
+      }[dateType]);
+    }
+    setDateType(dateType);
+  }, [autoDate, manualDate, showDateInput, showMonthInput]);
+
   const changeDate = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
+    (e: ChangeEvent<HTMLInputElement|HTMLSelectElement>) => {
       setManualDate(e.target.value);
-      setUseAutoDate(false);
     }, []);
-  
+
   const changeSummary = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       const summary = e.target.value;
@@ -91,18 +120,55 @@ export function TimelineEntryForm({
     <>
       <div className="mb-2">
         <span className="text-zinc-300">Date</span>
-        <div className="flex bg-zinc-800">
-          <input type="date" ref={dateInput}
+
+        <input type="date" ref={dateInput}
             className="hidden"
             value={manualDate ?? ""}
             onChange={changeDate} />
-          <div className="p-2 text-xl grow mr-2" onClick={chooseDate}>
-            {useAutoDate ? autoDate : manualDate}{useAutoDate && <span className="text-slate-400"> (auto)</span>}
-          </div>
-          <Button variant="link" className="w-auto mr-2" onClick={useAutoDate ? chooseDate : unchooseDate}>
-            {useAutoDate ? "override" : "use auto"}
-          </Button>
+
+        <input type="month" ref={monthInput}
+            className="hidden"
+            value={manualDate ?? ""}
+            onChange={changeDate} />
+        
+        <div className="bg-zinc-800 flex">
+          {dateType !== "year" && (
+            <div className="text-xl grow mr-2 p-2" onClick={{
+              date: showDateInput,
+              month: showMonthInput,
+              auto: undefined,
+            }[dateType]}>
+              {dateType === "auto" ? autoDate : manualDate}
+            </div>
+          )}
+          {dateType == "year" && (
+            <select 
+              value={manualDate ?? new Date().getFullYear()}
+              onChange={changeDate}
+              className="bg-transparent text-xl grow mr-2 p-2 focus:outline-none appearance-none"
+            >
+              {Array(new Date().getFullYear() - 1969).fill(null).map((_,i) => <option key={1970+i}>{1970+i}</option>)}
+            </select>
+          )}
+          
+          <select
+            className="bg-transparent text-xl text-zinc-400 text-right appearance-none focus:outline-none px-4 py-2"
+            value={dateType}
+            onChange={useCallback((e: ChangeEvent<HTMLSelectElement>) => e.target.blur(), [])}
+            onBlur={changeDateType}
+          >
+            {DateTypes.map(dateType => 
+              <option key={dateType} value={dateType}>
+                {{
+                  auto: "auto",
+                  date: "specific date",
+                  month: "approx month",
+                  year: "approx year",
+                }[dateType]}
+              </option>)}
+          </select>
         </div>
+        
       </div>
 
       <div className="mb-2">
