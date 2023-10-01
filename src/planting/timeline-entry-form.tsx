@@ -119,9 +119,9 @@ export function TimelineEntryForm({
 
       {photos.length > 0 && (
         <div className="mb-2 grid grid-cols-3 gap-2 mb-2">
-          {photos.map(({ id, blob }) => 
-            <div key={id} className="w-full h-40">
-              <ExpandableImage className="object-cover w-full h-full" src={URL.createObjectURL(blob)} />
+          {photos.map(photo => 
+            <div key={photo.id} className="w-full h-40">
+              <ExpandableImage className="object-cover w-full h-full" photo={photo} />
             </div>)}
         </div>
       )}
