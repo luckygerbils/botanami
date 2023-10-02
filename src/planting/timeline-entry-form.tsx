@@ -9,7 +9,7 @@ import { Input } from "../common/input";
 
 interface TimelineEntryFormData {
   id: TimelineEntryId,
-  date: Date,
+  date: string,
   summary?: string,
   description?: string,
   photos?: Photo[],
@@ -28,6 +28,7 @@ export function TimelineEntryForm({
   onChange,
 }: TimelineEntryFormProps) {
   const {
+    date,
     summary="",
     description="",
     photos=[],
@@ -40,13 +41,14 @@ export function TimelineEntryForm({
   const monthInput = useRef<HTMLInputElement>(null);
   const showMonthInput = useCallback(() => monthInput.current?.showPicker(), []);
 
-  const [ autoDate, setAutoDate ] = useState(new Date().toISOString().substring(0, 10));
+  const [ autoDate, setAutoDate ] = useState(date);
   const [ manualDate, setManualDate ] = useState<string|null>(null);
 
   const changeDateType = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
     const dateType = e.target.selectedOptions[0].value as DateType;
     if (dateType === "auto") {
       setManualDate(null);
+      onChange({ ...data, date: autoDate });
     } else {
       if (manualDate == null && dateType !== "year") {
         // Unfortunately, can't do anything to show the year input automatically
@@ -57,19 +59,25 @@ export function TimelineEntryForm({
       const [ autoYear, autoMonth, autoDay ] = autoDate.split("-");
       const [ year, month, day ] = [manualYear ?? autoYear, manualMonth ?? autoMonth, manualDay ?? autoDay];
 
-      setManualDate({
-        date: `${year}-${month}-${day}`,
-        month: `${year}-${month}`,
-        year: `${year}`,
-      }[dateType]);
+      const date = {
+          date: `${year}-${month}-${day}`,
+          month: `${year}-${month}`,
+          year: `${year}`,
+        }[dateType];
+      setManualDate(date);
+      onChange({ ...data, date });
     }
     setDateType(dateType);
-  }, [autoDate, manualDate, showDateInput, showMonthInput]);
+  }, [autoDate, data, manualDate, onChange, showDateInput, showMonthInput]);
 
   const changeDate = useCallback(
     (e: ChangeEvent<HTMLInputElement|HTMLSelectElement>) => {
-      setManualDate(e.target.value);
-    }, []);
+      const date = e.target.value;
+      setManualDate(date);
+      if (dateType != "auto") {
+        onChange({ ...data, date });
+      }
+    }, [data, dateType, onChange]);
 
   const changeSummary = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -91,6 +99,7 @@ export function TimelineEntryForm({
 
   const upload = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
     const newPhotos: Photo[] = [];
+    const dateChange: { date?: string, } = {};
     for (const file of Array.from(e.target.files ?? [])) {
       // Check if the file is an image.
       if (file.type && file.type.indexOf('image') === -1) {
@@ -102,7 +111,11 @@ export function TimelineEntryForm({
       try {
         const exifDate = await getExifModifyDate(file);
         if (exifDate != null) {
-          setAutoDate(exifDate.toISOString().substring(0, 10));
+          const autoDate = exifDate.toISOString().substring(0, 10);
+          setAutoDate(autoDate);
+          if (dateType === "auto") {
+            dateChange.date = autoDate;
+          }
         }
       } catch (e) {
         console.log(`Error getting exif modify date. Ignoring. Error: ${String(e)}`);
@@ -110,8 +123,8 @@ export function TimelineEntryForm({
 
       newPhotos.push({ id: crypto.randomUUID(), blob: file, timelineEntryId: data.id })
     }
-    onChange({ ...data, photos: [ ...photos, ...newPhotos ]})
-  }, [data, onChange, photos]);
+    onChange({ ...data, ...dateChange, photos: [ ...photos, ...newPhotos ]})
+  }, [data, dateType, onChange, photos]);
 
   const [ hasDescription, setHasDescription ] = useState(false);
   const toggleHasDescription = useCallback(() => setHasDescription(value => !value), []);

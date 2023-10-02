@@ -9,7 +9,7 @@ export interface TimelineEntryPageProps {
 }
 export interface NewTimelineEntry {
     id: TimelineEntryId,
-    date: Date,
+    date: string,
     summary?: string,
     description?: string,
     photos?: Photo[],
@@ -45,7 +45,7 @@ export async function getTimelineEntryPageInitialProps(plantingId: PlantingId, e
         plantingName: plantingRecord.name,
         timelineEntry: {
             id: timelineEntryRecord.id,
-            date: new Date(timelineEntryRecord.date),
+            date: timelineEntryRecord.date,
             summary: timelineEntryRecord.summary,
             description: timelineEntryRecord.description,
             photos,
@@ -60,7 +60,7 @@ export async function putTimelineEntry(plantingId: PlantingId, entry: NewTimelin
         putTimelineEntryRecord({
             id: entry.id,
             plantingId,
-            date: entry.date.toISOString(),
+            date: entry.date,
             summary: entry.summary,
             description: entry.description,
         }, transaction),

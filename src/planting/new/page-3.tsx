@@ -24,7 +24,7 @@ export function NewPlantingPageThree({
 }: NewPlantingPageThreeProps) {
   const [ entry, setEntry ] = useState<TimelineEntry>({
     id: crypto.randomUUID(),
-    date: new Date(),
+    date: new Date().toISOString().substring(0, 10),
     summary: "Planted",
   });
 

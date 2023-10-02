@@ -25,7 +25,7 @@ export default function NewTimelineEntryPage({
 }: TimelineEntryPageProps) {
   const [ entry, setEntry ] = useState<TimelineEntry>({
     id: timelineEntry?.id ?? crypto.randomUUID(),
-    date: timelineEntry?.date ?? new Date(),
+    date: timelineEntry?.date ?? new Date().toISOString().substring(0, 10),
     summary: timelineEntry?.summary,
     description: timelineEntry?.description,
     photos: timelineEntry?.photos,

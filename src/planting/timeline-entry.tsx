@@ -8,7 +8,7 @@ interface TimelineEntryProps {
   plantingId: PlantingId,
   entry: {
     id: string,
-    date: Date,
+    date: string,
     summary?: string,
     description?: string,
     photos?: {
@@ -42,7 +42,7 @@ export function TimelineEntry({
           {summary &&
             <div className="text-xl">{summary}</div>}
           <div className="grow flex justify-end items-start">
-            {date.toLocaleDateString(undefined, { dateStyle: "full" })}
+            {date}
           </div>
         </div>
         {(photos && photos.length > 0) && (

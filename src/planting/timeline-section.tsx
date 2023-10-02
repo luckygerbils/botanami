@@ -10,7 +10,7 @@ interface TimelineSectionProps {
   plantingId: PlantingId,
   timeline: {
     id: TimelineEntryId,
-    date: Date,
+    date: string,
     summary?: string,
     description?: string,
     photos?: {
@@ -37,7 +37,7 @@ export function TimelineSection({
             </Button>
             <div className="mb-2 divide-y divide-zinc-800">
               {timeline
-                .sort(reversed((a, b) => dateCompare(a.date, b.date)))
+                .sort(reversed((a, b) => a.date.localeCompare(b.date)))
                 .map(entry => 
                   <TimelineEntry key={entry.id} plantingId={plantingId} entry={entry} />
                 )}

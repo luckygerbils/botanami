@@ -56,7 +56,7 @@ export type PlantingRecord = Omit<Planting, "plant"|"timeline"> & {
 export type TimelineEntryId = string;
 export interface TimelineEntry {
     id: TimelineEntryId,
-    date: Date,
+    date: string,
     summary?: string,
     description?: string,
     photos?: Photo[],

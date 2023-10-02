@@ -13,7 +13,7 @@ export interface PlantingPageProps {
     }
     timelineEntries: {
         id: TimelineEntryId,
-        date: Date,
+        date: string,
         summary?: string,
         description?: string,
         photos?: {
@@ -59,7 +59,7 @@ export async function getPlantingPageInitialProps(plantingId: PlantingId): Promi
             photos,
         }) => ({
             id,
-            date: new Date(date),
+            date,
             description,
             summary,
             photos: photosByTimelineEntryId[id],

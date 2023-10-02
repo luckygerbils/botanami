@@ -24,7 +24,7 @@ export async function createPlanting(
         initialTimelineEntry && putTimelineEntryRecord({
             id: initialTimelineEntry.id,
             plantingId: id,
-            date: initialTimelineEntry.date.toISOString(),
+            date: initialTimelineEntry.date,
             summary: initialTimelineEntry.summary,
             description: initialTimelineEntry.description,
         }, transaction),
